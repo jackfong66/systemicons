@@ -55,7 +55,7 @@ pub fn get_icon(ext: &str, size: i32) -> Result<Vec<u8>, Error> {
         bmWidth: 0,
         bmWidthBytes: 0,
     };
-    unsafe {GetObjectW(icon_info.hbmColor, mem::size_of_val(&bmp_color) as i32, Some(&mut bmp_color as *mut _ as *mut _)) }; 
+    unsafe {GetObjectW(icon_info.hbmColor.into(), mem::size_of_val(&bmp_color) as i32, Some(&mut bmp_color as *mut _ as *mut _)) }; 
 
     let mut bmp_mask = BITMAP {
         bmBits: ptr::null_mut(),
@@ -66,7 +66,7 @@ pub fn get_icon(ext: &str, size: i32) -> Result<Vec<u8>, Error> {
         bmWidth: 0,
         bmWidthBytes: 0,
     };
-    unsafe {GetObjectW(icon_info.hbmMask, mem::size_of_val(&bmp_mask) as i32, Some(&mut bmp_mask as *mut _ as *mut _)) };
+    unsafe {GetObjectW(icon_info.hbmMask.into(), mem::size_of_val(&bmp_mask) as i32, Some(&mut bmp_mask as *mut _ as *mut _)) };
 
     fn get_bitmap_count(bitmap: &BITMAP)->i32 {
         let mut n_width_bytes = bitmap.bmWidthBytes;
